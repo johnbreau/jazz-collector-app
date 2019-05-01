@@ -18,22 +18,24 @@ class DiscogsComponent {
     constructor() {
         this.DISCOGS_BASE_API = 'https://api.discogs.com/artists/';
         // fetch('https://api.discogs.com/database/search?q=freddiehubbard&key=tFwRgMCrRNYihIsAemwL&secret=LQeRiRrauOFQaNtYgXhRCOXeotolHFNM&{?type,title,release_title,credit,artist,anv,label,genre,style,country,year,format,catno,barcode,track,submitter,contributor}')
+        // Artist ids for testing...
+        // 10079
+        // 10620
+        // 95088
         this.discogContent = [];
-        this.maxValue = 5;
-        this.value = 3;
     }
     // This will fire the getDiscogData mehtod onload...
     // componentWillLoad() {
-    // this.getDiscogData();
-    // this.queryDiscogs();
+    //   this.queryForImage();
     // }
     handleSubmit(e) {
         e.preventDefault();
-        // this.getDiscogData(this.artistId);
-        this.queryDiscogs(this.queryTerm);
+        this.getDiscogData(this.artistId);
+        // this.queryDiscogs(this.queryTerm);
     }
     handleChange(event) {
-        this.queryTerm = event.target.value;
+        // this.queryTerm = event.target.value;
+        this.artistId = event.target.value;
     }
     getDiscogData(artistId) {
         fetch(this.DISCOGS_BASE_API + artistId)
@@ -42,14 +44,14 @@ class DiscogsComponent {
             this.discogContent = response;
         });
     }
-    queryDiscogs(queryTerm) {
-        fetch('https://api.discogs.com/database/search?q=' + queryTerm + '&key=tFwRgMCrRNYihIsAemwL&secret=LQeRiRrauOFQaNtYgXhRCOXeotolHFNM&{?artist}')
-            .then((response) => response.json())
-            .then(response => {
-            console.log(response);
-            this.discogContent = response;
-        });
-    }
+    // queryDiscogs(queryTerm) {
+    //   fetch('https://api.discogs.com/database/search?q=' + queryTerm + '&key=tFwRgMCrRNYihIsAemwL&secret=LQeRiRrauOFQaNtYgXhRCOXeotolHFNM&{?artist}')
+    //     .then((response: Response) => response.json())
+    //     .then(response => {
+    //       console.log(response.results[0].thumb);
+    //       this.discogContent = response;
+    //     });
+    // }
     render() {
         return (h("div", { padding: true },
             h("form", { onSubmit: (e) => this.handleSubmit(e) },
@@ -67,14 +69,6 @@ class DiscogsComponent {
         },
         "discogContent": {
             "state": true
-        },
-        "maxValue": {
-            "type": Number,
-            "attr": "max-value"
-        },
-        "value": {
-            "type": Number,
-            "attr": "value"
         }
     }; }
     static get style() { return ".body-copy {\n  font-family: 'Roboto', sans-serif;\n  font-weight: 300;\n  font-size: 1rem;\n  line-height: 1.8rem;\n}\n\n.header-copy {\n  font-family: 'Roboto', sans-serif;\n  font-weight: 800;\n}"; }

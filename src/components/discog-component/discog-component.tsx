@@ -1,4 +1,4 @@
-import { Component, Prop, State } from '@stencil/core';
+import { Component, State } from '@stencil/core';
 
 @Component({
   tag: 'discogs-component',
@@ -8,26 +8,29 @@ export class DiscogsComponent {
   public DISCOGS_BASE_API= 'https://api.discogs.com/artists/';
   public queryTerm: string;
   // fetch('https://api.discogs.com/database/search?q=freddiehubbard&key=tFwRgMCrRNYihIsAemwL&secret=LQeRiRrauOFQaNtYgXhRCOXeotolHFNM&{?type,title,release_title,credit,artist,anv,label,genre,style,country,year,format,catno,barcode,track,submitter,contributor}')
+  // Artist ids for testing...
+  // 10079
+  // 10620
+  // 95088
+
 
   @State() discogContent: any = [];
   @State() artistId: number;
-  @Prop() maxValue: number = 5;
-  @Prop() value: number = 3;
 
   // This will fire the getDiscogData mehtod onload...
   // componentWillLoad() {
-   // this.getDiscogData();
-  // this.queryDiscogs();
+  //   this.queryForImage();
   // }
 
   handleSubmit(e){
     e.preventDefault();
-    // this.getDiscogData(this.artistId);
-    this.queryDiscogs(this.queryTerm)
+    this.getDiscogData(this.artistId);
+    // this.queryDiscogs(this.queryTerm);
   }
 
   handleChange(event) {
-    this.queryTerm = event.target.value;
+    // this.queryTerm = event.target.value;
+    this.artistId = event.target.value;
   }
 
   getDiscogData(artistId){
@@ -38,14 +41,14 @@ export class DiscogsComponent {
       });
   }
 
-  queryDiscogs(queryTerm) {
-    fetch('https://api.discogs.com/database/search?q=' + queryTerm + '&key=tFwRgMCrRNYihIsAemwL&secret=LQeRiRrauOFQaNtYgXhRCOXeotolHFNM&{?artist}')
-      .then((response: Response) => response.json())
-      .then(response => {
-        console.log(response);
-        this.discogContent = response;
-      });
-  }
+  // queryDiscogs(queryTerm) {
+  //   fetch('https://api.discogs.com/database/search?q=' + queryTerm + '&key=tFwRgMCrRNYihIsAemwL&secret=LQeRiRrauOFQaNtYgXhRCOXeotolHFNM&{?artist}')
+  //     .then((response: Response) => response.json())
+  //     .then(response => {
+  //       console.log(response.results[0].thumb);
+  //       this.discogContent = response;
+  //     });
+  // }
 
   render() {
     return (
@@ -59,9 +62,6 @@ export class DiscogsComponent {
         </div>
         <div class="bio-content">
           <p class="body-copy">{this.discogContent.profile}</p>
-          {/*<img class="body-image" src="{ }"></img>*/}
-          {/*<div>{this.discogContent.results[0]}</div>*/}
-          {/*<img src={`(response.results[0]`}/>*/}
           </div>
       </div>
     );

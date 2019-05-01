@@ -26,14 +26,8 @@ export namespace Components {
   interface AppRoot {}
   interface AppRootAttributes extends StencilHTMLAttributes {}
 
-  interface DiscogsComponent {
-    'maxValue': number;
-    'value': number;
-  }
-  interface DiscogsComponentAttributes extends StencilHTMLAttributes {
-    'maxValue'?: number;
-    'value'?: number;
-  }
+  interface DiscogsComponent {}
+  interface DiscogsComponentAttributes extends StencilHTMLAttributes {}
 }
 
 declare global {

@@ -8,6 +8,7 @@
 *.swo
 *.swp
 *.vi
+*.idea
 *~
 *.sass-cache
 
@@ -19,6 +20,7 @@ Thumbs.db
 .project
 .settings
 .tmproj
+.www
 *.esproj
 nbproject
 *.sublime-project

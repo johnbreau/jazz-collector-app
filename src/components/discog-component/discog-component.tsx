@@ -52,7 +52,7 @@ export class DiscogsComponent {
       .then((response: Response) => response.json())
       .then(response => {
         this.queryResults = response;
-        console.log(queryResults)
+        // console.log(queryResults)
       });
   }
 

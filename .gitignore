@@ -20,7 +20,6 @@ Thumbs.db
 .project
 .settings
 .tmproj
-.www
 *.esproj
 nbproject
 *.sublime-project
@@ -42,6 +41,7 @@ dwsync.xml
 intermediate
 publish
 .idea
+www
 
 # build script local files
 build/buildinfo.properties

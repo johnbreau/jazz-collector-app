@@ -54,7 +54,7 @@ class DiscogsComponent {
             .then((response) => response.json())
             .then(response => {
             this.queryResults = response;
-            console.log(queryResults);
+            // console.log(queryResults)
         });
     }
     render() {

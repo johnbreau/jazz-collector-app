@@ -15,6 +15,7 @@ export class DiscogsComponent {
 
 
   @State() discogContent: any = [];
+  @State() queryResults: any = [];
   @State() artistId: number;
 
   // This will fire the getDiscogData mehtod onload...
@@ -25,11 +26,16 @@ export class DiscogsComponent {
   handleSubmit(e){
     e.preventDefault();
     this.getDiscogData(this.artistId);
-    // this.queryDiscogs(this.queryTerm);
+    this.queryDiscogs(this.queryTerm);
   }
 
   handleChange(event) {
     // this.queryTerm = event.target.value;
+    this.artistId = event.target.value;
+  }
+
+  handleQueryChange(event) {
+    this.queryTerm = event.target.value;
     this.artistId = event.target.value;
   }
 
@@ -41,14 +47,14 @@ export class DiscogsComponent {
       });
   }
 
-  // queryDiscogs(queryTerm) {
-  //   fetch('https://api.discogs.com/database/search?q=' + queryTerm + '&key=tFwRgMCrRNYihIsAemwL&secret=LQeRiRrauOFQaNtYgXhRCOXeotolHFNM&{?artist}')
-  //     .then((response: Response) => response.json())
-  //     .then(response => {
-  //       console.log(response.results[0].thumb);
-  //       this.discogContent = response;
-  //     });
-  // }
+  queryDiscogs(queryTerm) {
+    fetch('https://api.discogs.com/database/search?q=' + queryTerm + '&key=tFwRgMCrRNYihIsAemwL&secret=LQeRiRrauOFQaNtYgXhRCOXeotolHFNM&{?artist}')
+      .then((response: Response) => response.json())
+      .then(response => {
+        this.queryResults = response;
+        console.log(queryResults)
+      });
+  }
 
   render() {
     return (
@@ -56,6 +62,8 @@ export class DiscogsComponent {
         <form onSubmit={(e) => this.handleSubmit(e)}>
           <label htmlFor="artist-id">Artist ID:</label>
           <input value={this.artistId} onInput={(event) => this.handleChange(event)}/>
+          <label htmlFor="query-term">Artist ID:</label>
+          <input value={this.queryTerm} onInput={(event) => this.handleQueryChange(event)}/>
         </form>
         <div>
         <h1 class="header-copy">{this.discogContent.name}</h1>

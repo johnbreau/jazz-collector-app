@@ -23,6 +23,7 @@ class DiscogsComponent {
         // 10620
         // 95088
         this.discogContent = [];
+        this.queryResults = [];
     }
     // This will fire the getDiscogData mehtod onload...
     // componentWillLoad() {
@@ -31,10 +32,14 @@ class DiscogsComponent {
     handleSubmit(e) {
         e.preventDefault();
         this.getDiscogData(this.artistId);
-        // this.queryDiscogs(this.queryTerm);
+        this.queryDiscogs(this.queryTerm);
     }
     handleChange(event) {
         // this.queryTerm = event.target.value;
+        this.artistId = event.target.value;
+    }
+    handleQueryChange(event) {
+        this.queryTerm = event.target.value;
         this.artistId = event.target.value;
     }
     getDiscogData(artistId) {
@@ -44,19 +49,21 @@ class DiscogsComponent {
             this.discogContent = response;
         });
     }
-    // queryDiscogs(queryTerm) {
-    //   fetch('https://api.discogs.com/database/search?q=' + queryTerm + '&key=tFwRgMCrRNYihIsAemwL&secret=LQeRiRrauOFQaNtYgXhRCOXeotolHFNM&{?artist}')
-    //     .then((response: Response) => response.json())
-    //     .then(response => {
-    //       console.log(response.results[0].thumb);
-    //       this.discogContent = response;
-    //     });
-    // }
+    queryDiscogs(queryTerm) {
+        fetch('https://api.discogs.com/database/search?q=' + queryTerm + '&key=tFwRgMCrRNYihIsAemwL&secret=LQeRiRrauOFQaNtYgXhRCOXeotolHFNM&{?artist}')
+            .then((response) => response.json())
+            .then(response => {
+            this.queryResults = response;
+            console.log(queryResults);
+        });
+    }
     render() {
         return (h("div", { padding: true },
             h("form", { onSubmit: (e) => this.handleSubmit(e) },
                 h("label", { htmlFor: "artist-id" }, "Artist ID:"),
-                h("input", { value: this.artistId, onInput: (event) => this.handleChange(event) })),
+                h("input", { value: this.artistId, onInput: (event) => this.handleChange(event) }),
+                h("label", { htmlFor: "query-term" }, "Artist ID:"),
+                h("input", { value: this.queryTerm, onInput: (event) => this.handleQueryChange(event) })),
             h("div", null,
                 h("h1", { class: "header-copy" }, this.discogContent.name)),
             h("div", { class: "bio-content" },
@@ -68,6 +75,9 @@ class DiscogsComponent {
             "state": true
         },
         "discogContent": {
+            "state": true
+        },
+        "queryResults": {
             "state": true
         }
     }; }

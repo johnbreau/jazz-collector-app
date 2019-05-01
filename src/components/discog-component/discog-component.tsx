@@ -62,8 +62,8 @@ export class DiscogsComponent {
         <form onSubmit={(e) => this.handleSubmit(e)}>
           <label htmlFor="artist-id">Artist ID:</label>
           <input value={this.artistId} onInput={(event) => this.handleChange(event)}/>
-          <label htmlFor="query-term">Artist ID:</label>
-          <input value={this.queryTerm} onInput={(event) => this.handleQueryChange(event)}/>
+          {/*<label htmlFor="query-term">Artist ID:</label>*/}
+          {/*<input value={this.queryTerm} onInput={(event) => this.handleQueryChange(event)}/>*/}
         </form>
         <div>
         <h1 class="header-copy">{this.discogContent.name}</h1>

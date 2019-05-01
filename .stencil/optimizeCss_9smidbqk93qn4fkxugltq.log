@@ -1,6 +1,0 @@
-.body-copy {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  font-size: .9rem;
-  line-height: 1.1rem;
-}
